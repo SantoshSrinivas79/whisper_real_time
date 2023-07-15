@@ -32,3 +32,12 @@ scoop install ffmpeg
 For more information on Whisper please see https://github.com/openai/whisper
 
 The code in this repository is public domain.
+
+### Additonal notes
+
+- Install `PyAudio`
+
+	```sh
+	brew install portaudio
+	pip install pyaudio
+	```

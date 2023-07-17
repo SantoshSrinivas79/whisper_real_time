@@ -15,6 +15,16 @@ from sys import platform
 
 
 def main():
+    # Ensure the 'data' folder exists
+    os.makedirs('data', exist_ok=True)
+
+    # Get the current date and time
+    now = datetime.now()
+
+    # Format the date and time as a string to be used in the filename
+    timestamp = now.strftime("%Y%m%d%H%M%S")  # e.g., 20230717120000 for July 17, 2023 at 12:00:00
+
+
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="medium", help="Model to use",
                         choices=["tiny", "base", "small", "medium", "large"])
@@ -52,7 +62,7 @@ def main():
         if not mic_name or mic_name == 'list':
             print("Available microphone devices are: ")
             for index, name in enumerate(sr.Microphone.list_microphone_names()):
-                print(f"Microphone with name \"{name}\" found")   
+                print(f"Microphone with name \"{name}\" found")
             return
         else:
             for index, name in enumerate(sr.Microphone.list_microphone_names()):
@@ -145,6 +155,8 @@ def main():
 
     print("\n\nTranscription:")
     for line in transcription:
+        with open(f'data/transcription_{timestamp}.txt', 'a') as f:
+            f.write((f"{line}\n"))        
         print(line)
 
 
